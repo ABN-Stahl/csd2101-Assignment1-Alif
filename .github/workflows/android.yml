@@ -14,6 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - { project: Chapter2/2-OpenGLES3_Primitives-Modern, name: 2-OpenGLES3_Primitives-Modern }
 
     steps:
       - uses: actions/checkout@v4
