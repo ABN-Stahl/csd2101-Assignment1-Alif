@@ -11,6 +11,11 @@
  *
  * Emscripten must be detected before Windows because emcc defines both
  * __EMSCRIPTEN__ and _WIN32 on some toolchain setups.
+ *
+ * Edits: ported from Chapter2/1-GLPIFrameworkIntro-Modern's Platform.h.
+ * Changed the default LOG_TAG to "Fan3D" and guarded each platform #define
+ * against redefinition, since the desktop CMakeLists.txt already defines
+ * PLATFORM_WINDOWS on the compiler command line.
  */
 
 #if defined(__EMSCRIPTEN__) && !defined(PLATFORM_EMSCRIPTEN)

@@ -1,3 +1,11 @@
+/**
+ * Renderer.cpp
+ *
+ * Edits: ported from Chapter3/4-VertexArrayObject-Modern's Renderer.cpp.
+ * createModels() swapped to register Fan instead of Cube/Grid; otherwise
+ * unchanged.
+ */
+
 #define LOG_TAG "Renderer"
 #include "Renderer.h"
 #include "Fan.h"

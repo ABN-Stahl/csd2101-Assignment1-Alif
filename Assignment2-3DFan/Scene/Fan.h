@@ -3,9 +3,16 @@
 /**
  * Fan.h
  *
- * A 3D table fan (base, pole, hub, four blades) built from a single 8-vertex
- * cube drawn seven times with a different model matrix composed on the
- * Transform push/pop stack, tinted per-part through the PARTCOLOR uniform.
+ * Author: Alif Bin Norazhar (alif.binnorazhar@digipen.edu)
+ * Date:   2026-07-12
+ *
+ * What this does: declares the Fan model - a 3D table fan (base, pole, hub,
+ * four blades) built from a single 8-vertex cube drawn seven times with a
+ * different model matrix composed on the Transform push/pop stack, tinted
+ * per-part through the PARTCOLOR uniform. Owns the gesture state (tap /
+ * swipe / fling-decay) described below.
+ *
+ * Edits: new file written for Assignment 2, no tutorial equivalent existed.
  *
  * Gestures:
  *   TAP (down+up, little movement)  - toggle fanOn and log Fan ON / Fan OFF

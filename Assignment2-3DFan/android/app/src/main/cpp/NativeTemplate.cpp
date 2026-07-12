@@ -8,6 +8,11 @@
  * Native method signatures must match those declared in MainActivity.java:
  *   package com.example.fan3d
  *   class   MainActivity
+ *
+ * Edits: ported from Chapter2/4-TouchEvents-Modern's NativeTemplate.cpp.
+ * Renamed every JNI symbol from Java_com_example_touchevents_MainActivity_*
+ * to Java_com_example_fan3d_MainActivity_* to match the new package, and
+ * updated LOG_TAG. Function bodies are unchanged.
  */
 
 #define LOG_TAG "Fan3DNative"

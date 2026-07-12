@@ -8,6 +8,11 @@
  *   press   -> TouchEventDown
  *   drag    -> TouchEventMove
  *   release -> TouchEventRelease
+ *
+ * Edits: ported from Chapter2/4-TouchEvents-Modern's main.cpp. Removed the
+ * tutorial's unused SDL2 backend branch (this project only ever builds the
+ * GLFW path), and renamed window title / log strings from TouchEvents to
+ * 3D Fan.
  */
 
 #include "Platform.h"

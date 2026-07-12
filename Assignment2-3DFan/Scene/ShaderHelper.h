@@ -10,6 +10,9 @@
  *   PLATFORM_EMSCRIPTEN  - shader source loaded from the Emscripten virtual filesystem
  *                          (same std::ifstream path as desktop; emcc --preload-file
  *                           maps the assets directory into the virtual FS)
+ *
+ * Edits: ported from Chapter2/1-GLPIFrameworkIntro-Modern's ShaderHelper.h,
+ * reformatted to brace-on-its-own-line style. No logic changes.
  */
 
 #include "Platform.h"

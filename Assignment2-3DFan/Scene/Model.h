@@ -5,6 +5,11 @@
  *
  * Abstract base class for all renderable objects.
  * Platform-agnostic - shared by Android, Desktop, and WebGL builds.
+ *
+ * Edits: ported from Chapter2/1-GLPIFrameworkIntro-Modern's Model.h. Added
+ * FanType to the enum, reformatted braces onto their own line, and named
+ * the default-body parameters as unnamed to silence unused-parameter
+ * warnings.
  */
 
 enum ModelType

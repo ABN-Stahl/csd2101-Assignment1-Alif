@@ -5,6 +5,10 @@
  *
  * Singleton renderer that owns all Model instances and drives the render loop.
  * Platform-agnostic - shared by Android, Desktop, and WebGL builds.
+ *
+ * Edits: ported from Chapter3/4-VertexArrayObject-Modern's Renderer.h, the
+ * variant whose resize() forwards to each Model's Resize() - needed so the
+ * Fan can rebuild its projection matrix when the window/surface size changes.
  */
 
 #include "Model.h"

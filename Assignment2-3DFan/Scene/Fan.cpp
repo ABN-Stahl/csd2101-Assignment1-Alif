@@ -1,3 +1,21 @@
+/**
+ * Fan.cpp
+ *
+ * Author: Alif Bin Norazhar (alif.binnorazhar@digipen.edu)
+ * Date:   2026-07-12
+ *
+ * What this does: implements the Fan model declared in Fan.h - uploads the
+ * one shared cube (VBO with position + shade sub-regions, IBO, single VAO),
+ * draws it seven times with a different Transform push/pop block and
+ * PARTCOLOR per part, advances spinAngle, and handles tap/swipe gestures
+ * (velocity-based drag boost, fling-with-decay on release).
+ *
+ * Edits: new file written for Assignment 2. Cube geometry/VAO setup pattern
+ * reused from the Chapter3 Attribute_Layouts / VertexArrayObject tutorials;
+ * the fan hierarchy transform values were tuned twice after the first build
+ * (pole length/position and camera distance) to fix visible clipping.
+ */
+
 #define LOG_TAG "Fan"
 #include "Fan.h"
 #include "ShaderHelper.h"

@@ -17,6 +17,11 @@ import javax.microedition.khronos.opengles.GL10;
  * MainActivity - hosts the GLSurfaceView for the 3D Fan renderer and
  * forwards touch events to the native scene through queueEvent so every
  * native call happens on the GL thread.
+ *
+ * Edits: ported from Chapter2/4-TouchEvents-Modern's MainActivity.java
+ * (package com.example.touchevents). Renamed the package to
+ * com.example.fan3d, the loaded library to "fan3d", and the TAG string;
+ * the queueEvent touch-forwarding logic itself is unchanged.
  */
 public class MainActivity extends AppCompatActivity
 {
