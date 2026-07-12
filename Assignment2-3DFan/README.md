@@ -7,7 +7,7 @@ WebGL from one shared C++ source tree (`Scene/`).
 This project lives as the `Assignment2-3DFan/` subfolder of the shared
 `csd2101-Assignment1-Alif` course repo, alongside `Assignment1-Android/` and
 the `Chapter2/` tutorials. All commands below are run from inside this
-folder (`cd Assignment2-3DFan` first if you've just cloned the repo root).
+folder 
 
 - **Tap** (click, or touch down+up with little movement) toggles the fan ON/OFF and logs `Fan ON` / `Fan OFF`.
 - **Swipe / drag** (click-drag) spins the fan faster, proportional to drag speed. Releasing lets the boost decay back to base speed.
@@ -20,18 +20,16 @@ script_build_and_run.bat    Desktop convenience wrapper
 build_web.bat / .sh         Web (Emscripten) entry point
 cmake/ImportDependencies.cmake
 Scene/                      Shared by all three platforms
-  Fan.h, Fan.cpp             the fan model - geometry, transforms, gestures
-  Transform.h, Transform.cpp provided matrix stack (unmodified)
+  Fan.h, Fan.cpp             the fan model: geometry, transforms, gestures
+  Transform.h, Transform.cpp provided matrix stack 
   Model.h, Renderer.h/.cpp, ShaderHelper.h, Platform.h
-  main.cpp                   Desktop/Web entry point (mouse -> touch mapping)
+  main.cpp                   Desktop/Web entry point (mouse touch mapping)
 android/                    Android Studio / Gradle project
 ```
 
 ## Desktop (Windows)
 
-Prerequisites: CMake 3.15+, Visual Studio 2022 (or another VS 2022-compatible
-generator), and an internet connection (CMake fetches GLFW, GLEW, and GLM the
-first time via `FetchContent`).
+
 
 ```
 script_build_and_run.bat
@@ -54,14 +52,10 @@ build_desktop\Debug\Fan3D.exe
 Prerequisites: Android Studio (current stable), Android SDK with API 34+ and
 NDK, a device or emulator with OpenGL ES 3.0 support.
 
-1. Open the `android/` folder in Android Studio as a project.
-2. Let Gradle sync (this also fetches GLM via `FetchContent` inside
-   `android/app/src/main/cpp/CMakeLists.txt`).
-3. Run the `app` configuration on a device or emulator.
+Open the `android/` folder in Android Studio as a project.
 
-From the command line, once a Gradle wrapper is available (Android Studio
-generates `gradlew` on first sync, or run `gradle wrapper` once if you have a
-system Gradle installed):
+
+From the command line:
 
 ```
 cd android
@@ -81,8 +75,8 @@ Linux/macOS, `emsdk_env.bat` on Windows), and `git` in `PATH` (used once to
 fetch the header-only GLM library into `external/glm/`).
 
 ```
-./build_web.sh          # Linux / macOS
-build_web.bat            # Windows
+./build_web.sh for Linux
+build_web.bat for Windows
 ```
 
 This produces `web/index.html`, `web/index.js`, and `web/index.wasm`. Serve
@@ -116,7 +110,4 @@ three shared, matrix-based pipelines that cover every project in this repo:
   not the Pages root - that's what belongs in the class tracker's *web build
   output* column.
 
-All three run automatically on every push to `main` (and on pull requests,
-for `android.yml`/`desktop.yml`). Publishing Pages from a private repository
-requires GitHub Pro (included in the GitHub Student Developer Pack) - in the
-repository settings, set **Pages -> Source** to **GitHub Actions**.
+
