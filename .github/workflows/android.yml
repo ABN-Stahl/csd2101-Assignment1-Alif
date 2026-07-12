@@ -15,6 +15,7 @@ jobs:
       matrix:
         include:
           - { project: Chapter2/2-OpenGLES3_Primitives-Modern, name: 2-OpenGLES3_Primitives-Modern }
+          - { project: Assignment2-3DFan, name: Assignment2-3DFan }
 
     steps:
       - uses: actions/checkout@v4

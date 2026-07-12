@@ -46,6 +46,13 @@ jobs:
             mkdir -p ../site/Assignment1-Android
             cp -r web/. ../site/Assignment1-Android/
 
+      -   name: Build Assignment2-3DFan
+          working-directory: Assignment2-3DFan
+          run: |
+            bash build_web.sh
+            mkdir -p ../site/Assignment2-3DFan
+            cp -r web/. ../site/Assignment2-3DFan/
+
       - name: Generate index.html
         run: |
           cat > site/index.html << 'HTML'
@@ -63,6 +70,7 @@ jobs:
             <p>OpenGL primitives: point, line, and triangle with their variations.</p>
             <p><a href="Chapter2/2-OpenGLES3_Primitives-Modern/">Launch the demo</a></p>
             <p><a href="Assignment1-Android/">Launch Assignment 1</a></p>
+            <p><a href="Assignment2-3DFan/">Launch Assignment 2 — 3D Fan</a></p>
           </body>
           </html>
           HTML
