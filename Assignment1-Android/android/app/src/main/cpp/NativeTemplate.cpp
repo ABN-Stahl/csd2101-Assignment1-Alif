@@ -1,44 +1,38 @@
-/**
- * NativeTemplate.cpp
- *
- * Thin JNI bridge between the Java/Android layer and the shared Triangle renderer.
- * All GL logic lives in Scene/Triangle.h + Triangle.cpp.
- *
- * Native method signatures match MainActivity.java:
- *   package com.example.glpiframeworkintro
- *   class   MainActivity
- */
+/*!***************************************************************************
+ * \file   NativeTemplate.cpp
+ * \author Alif
+ * \par    CSD2101
+ * \date   2026
+ * \brief  Thin JNI bridge between the Android layer and the Renderer.
+ *         Converts the Java AssetManager to a native pointer and forwards
+ *         all lifecycle calls to Renderer::Instance().
+ *****************************************************************************/
 
 #define LOG_TAG "GLPIFrameworkIntroNative"
 
 #include <jni.h>
-#include "Triangle.h"   // brings in Platform.h → GLES3/gl3.h + LOGI/LOGE
-
-static Triangle g_triangle;
-
-// ---------------------------------------------------------------------------
-// JNI entry points
-// ---------------------------------------------------------------------------
+#include <android/asset_manager_jni.h>
+#include "Renderer.h"
 
 extern "C" JNIEXPORT jboolean JNICALL
 Java_com_example_helloworldandroid_MainActivity_nativeInit(
-        JNIEnv* /*env*/, jobject /*thiz*/, jobject /*assetManager*/)
+        JNIEnv* env, jobject /*thiz*/, jobject assetManager)
 {
-    LOGI("nativeInit called");
-    g_triangle.InitModel();
-    return JNI_TRUE;
+    AAssetManager* mgr = AAssetManager_fromJava(env, assetManager);
+    Renderer::Instance().setAssetManager(mgr);
+    return Renderer::Instance().initializeRenderer() ? JNI_TRUE : JNI_FALSE;
 }
 
 extern "C" JNIEXPORT void JNICALL
 Java_com_example_helloworldandroid_MainActivity_nativeResize(
         JNIEnv* /*env*/, jobject /*thiz*/, jint width, jint height)
 {
-    g_triangle.Resize(width, height);
+    Renderer::Instance().resize(width, height);
 }
 
 extern "C" JNIEXPORT void JNICALL
 Java_com_example_helloworldandroid_MainActivity_nativeRender(
         JNIEnv* /*env*/, jobject /*thiz*/)
 {
-    g_triangle.Render();
+    Renderer::Instance().render();
 }

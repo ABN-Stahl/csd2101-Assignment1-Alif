@@ -1,0 +1,19 @@
+# Desktop build output
+build_desktop/
+build/
+
+# Web build output
+web/
+
+# Fetched dependencies (CMake FetchContent cache, GLM for the web build)
+external/
+_deps/
+
+# Android
+.gradle/
+.idea/
+android/local.properties
+android/app/build/
+android/app/.cxx/
+android/.cxx/
+*.iml

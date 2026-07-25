@@ -15,7 +15,9 @@ jobs:
       matrix:
         include:
           - { project: Chapter2/2-OpenGLES3_Primitives-Modern, name: 2-OpenGLES3_Primitives-Modern }
+          - { project: Assignment1-Android, name: Assignment1-Android }
           - { project: Assignment2-3DFan, name: Assignment2-3DFan }
+          - { project: Assignment3-FanDashboardHUD, name: Assignment3-FanDashboardHUD }
 
     steps:
       - uses: actions/checkout@v4

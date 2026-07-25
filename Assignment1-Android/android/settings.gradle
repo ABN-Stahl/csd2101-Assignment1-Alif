@@ -22,4 +22,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "glpiframeworkintro"
 include ':app'
-include ':app'

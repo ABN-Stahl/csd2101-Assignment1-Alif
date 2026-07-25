@@ -15,9 +15,7 @@
  */
 
 #include "Platform.h"
-#include "Triangle.h"
-
-static Triangle g_triangle;
+#include "Renderer.h"
 
 // ==========================================================================
 // WebGL / Emscripten
@@ -33,7 +31,7 @@ static GLFWwindow* g_window = nullptr;
 
 static void fbsize_cb(GLFWwindow* /*win*/, int w, int h)
 {
-    g_triangle.Resize(w, h);
+    Renderer::Instance().resize(w, h);
 }
 
 static void main_loop()
@@ -45,7 +43,7 @@ static void main_loop()
         return;
     }
     glfwPollEvents();
-    g_triangle.Render();
+    Renderer::Instance().render();
     glfwSwapBuffers(g_window);
 }
 
@@ -65,10 +63,10 @@ int main()
     glfwMakeContextCurrent(g_window);
     glfwSetFramebufferSizeCallback(g_window, fbsize_cb);
 
-    g_triangle.InitModel();
+    Renderer::Instance().initializeRenderer();
     int w, h;
     glfwGetFramebufferSize(g_window, &w, &h);
-    g_triangle.Resize(w, h);
+    Renderer::Instance().resize(w, h);
 
     emscripten_set_main_loop(main_loop, 0, 1);
     return 0;
@@ -89,7 +87,7 @@ static void main_loop()
         if (ev.type == SDL_QUIT)
             emscripten_cancel_main_loop();
     }
-    g_triangle.Render();
+    Renderer::Instance().render();
     SDL_GL_SwapWindow(g_window);
 }
 
@@ -116,8 +114,8 @@ int main()
     g_glctx = SDL_GL_CreateContext(g_window);
     if (!g_glctx) { LOGE("SDL_GL_CreateContext failed: %s", SDL_GetError()); return -1; }
 
-    g_triangle.InitModel();
-    g_triangle.Resize(800, 600);
+    Renderer::Instance().initializeRenderer();
+    Renderer::Instance().resize(800, 600);
 
     emscripten_set_main_loop(main_loop, 0, 1);
     return 0;
@@ -134,7 +132,7 @@ int main()
 
 static void framebufferSizeCB(GLFWwindow* /*win*/, int w, int h)
 {
-    g_triangle.Resize(w, h);
+    Renderer::Instance().resize(w, h);
 }
 
 int main()
@@ -164,16 +162,16 @@ int main()
 
     glfwSetFramebufferSizeCallback(window, framebufferSizeCB);
 
-    g_triangle.InitModel();
+    Renderer::Instance().initializeRenderer();
     int w, h;
     glfwGetFramebufferSize(window, &w, &h);
-    g_triangle.Resize(w, h);
+    Renderer::Instance().resize(w, h);
 
     while (!glfwWindowShouldClose(window)) {
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
             glfwSetWindowShouldClose(window, GLFW_TRUE);
 
-        g_triangle.Render();
+        Renderer::Instance().render();
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

@@ -53,6 +53,13 @@ jobs:
             mkdir -p ../site/Assignment2-3DFan
             cp -r web/. ../site/Assignment2-3DFan/
 
+      -   name: Build Assignment3-FanDashboardHUD
+          working-directory: Assignment3-FanDashboardHUD
+          run: |
+            bash build_web.sh
+            mkdir -p ../site/Assignment3-FanDashboardHUD
+            cp -r web/. ../site/Assignment3-FanDashboardHUD/
+
       - name: Generate index.html
         run: |
           cat > site/index.html << 'HTML'
@@ -71,6 +78,7 @@ jobs:
             <p><a href="Chapter2/2-OpenGLES3_Primitives-Modern/">Launch the demo</a></p>
             <p><a href="Assignment1-Android/">Launch Assignment 1</a></p>
             <p><a href="Assignment2-3DFan/">Launch Assignment 2 — 3D Fan</a></p>
+            <p><a href="Assignment3-FanDashboardHUD/">Launch Assignment 3 — Fan Dashboard HUD</a></p>
           </body>
           </html>
           HTML

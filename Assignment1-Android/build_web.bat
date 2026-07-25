@@ -24,6 +24,8 @@ REM --- GLFW backend (default) -----------------------------------------------
 emcc -std=c++17 ^
      Scene/main.cpp ^
      Scene/Triangle.cpp ^
+     Scene/Renderer.cpp ^
+     Scene/Square.cpp ^
      -IScene ^
      -DUSE_GLFW ^
      -s USE_GLFW=3 ^
@@ -31,6 +33,7 @@ emcc -std=c++17 ^
      -s FULL_ES3=1 ^
      -s WASM=1 ^
      -s ALLOW_MEMORY_GROWTH=1 ^
+     --preload-file android/app/src/main/assets/shader@assets/shader ^
      -o web/index.html
 
 REM --- SDL2 backend (opt-in) ------------------------------------------------

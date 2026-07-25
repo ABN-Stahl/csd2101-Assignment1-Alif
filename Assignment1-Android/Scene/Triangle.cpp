@@ -1,8 +1,18 @@
 #define LOG_TAG "Triangle"
 
+/*!***************************************************************************
+ * \file   Triangle.cpp
+ * \author Alif Bin Norazhar(alif.binnorazhar@digipen.edu)
+ * \par    CSD2101
+ * \date   2026
+ * \brief  Concrete Model subclass that renders a rotating coloured triangle.
+ *         Shader source is loaded at runtime from .glsl asset files via
+ *         ShaderHelper instead of inline C-string literals.
+ *****************************************************************************/
+
 #include "Triangle.h"
+#include "ShaderHelper.h"
 #include <cmath>
-#include <string>
 
 // ---------------------------------------------------------------------------
 // Vertex data
@@ -21,91 +31,14 @@ static const GLfloat kColors[] = {
 };
 
 // ---------------------------------------------------------------------------
-// Shaders
-// ---------------------------------------------------------------------------
-
-static const char kVertexShader[] =
-    "#version 300 es                                           \n"
-    "layout(location = 0) in vec4 VertexPosition;             \n"
-    "layout(location = 1) in vec3 VertexColor;                \n"
-    "uniform float RadianAngle;                                \n"
-    "out vec4 TriangleColor;                                   \n"
-    "void main() {                                             \n"
-    "  mat2 r = mat2(cos(RadianAngle),  sin(RadianAngle),      \n"
-    "               -sin(RadianAngle),  cos(RadianAngle));     \n"
-    "  vec2 pos = r * VertexPosition.xy;                       \n"
-    "  gl_Position = vec4(pos, 0.0, 1.0);                      \n"
-    "  TriangleColor = vec4(VertexColor, 1.0);                 \n"
-    "}\n";
-
-static const char kFragmentShader[] =
-    "#version 300 es            \n"
-    "precision mediump float;   \n"
-    "in  vec4 TriangleColor;    \n"
-    "out vec4 FragColor;        \n"
-    "void main() {              \n"
-    "  FragColor = TriangleColor;\n"
-    "}";
-
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
-static GLuint compileShader(GLenum type, const char* src)
-{
-    GLuint shader = glCreateShader(type);
-    if (!shader) { LOGE("glCreateShader failed (type=0x%x)", type); return 0; }
-    glShaderSource(shader, 1, &src, nullptr);
-    glCompileShader(shader);
-    GLint ok = GL_FALSE;
-    glGetShaderiv(shader, GL_COMPILE_STATUS, &ok);
-    if (!ok) {
-        GLint len = 0;
-        glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &len);
-        std::string log(static_cast<size_t>(len), '\0');
-        glGetShaderInfoLog(shader, len, nullptr, &log[0]);
-        LOGE("Shader compile error:\n%s", log.c_str());
-        glDeleteShader(shader);
-        return 0;
-    }
-    return shader;
-}
-
-static GLuint createProgram(const char* vertSrc, const char* fragSrc)
-{
-    GLuint vs = compileShader(GL_VERTEX_SHADER,   vertSrc);
-    if (!vs) return 0;
-    GLuint fs = compileShader(GL_FRAGMENT_SHADER, fragSrc);
-    if (!fs) { glDeleteShader(vs); return 0; }
-
-    GLuint prog = glCreateProgram();
-    glAttachShader(prog, vs);
-    glAttachShader(prog, fs);
-    glLinkProgram(prog);
-
-    GLint ok = GL_FALSE;
-    glGetProgramiv(prog, GL_LINK_STATUS, &ok);
-    if (!ok) {
-        GLint len = 0;
-        glGetProgramiv(prog, GL_INFO_LOG_LENGTH, &len);
-        std::string log(static_cast<size_t>(len), '\0');
-        glGetProgramInfoLog(prog, len, nullptr, &log[0]);
-        LOGE("Program link error:\n%s", log.c_str());
-        glDeleteProgram(prog);
-        prog = 0;
-    }
-    glDetachShader(prog, vs);
-    glDetachShader(prog, fs);
-    glDeleteShader(vs);
-    glDeleteShader(fs);
-    return prog;
-}
-
-// ---------------------------------------------------------------------------
 // Triangle
 // ---------------------------------------------------------------------------
 
-Triangle::Triangle()  = default;
+#ifdef PLATFORM_ANDROID
+Triangle::Triangle(AAssetManager* assetMgr) : mgr(assetMgr) {}
+#else
+Triangle::Triangle() = default;
+#endif
 
 Triangle::~Triangle()
 {
@@ -119,7 +52,15 @@ void Triangle::InitModel()
 {
     LOGI("Triangle::InitModel");
 
-    programID = createProgram(kVertexShader, kFragmentShader);
+#ifdef PLATFORM_ANDROID
+    programID = ShaderHelper::buildProgramFromAssets(mgr,
+                    "shader/BlueTriangleVertex.glsl",
+                    "shader/BlueTriangleFragment.glsl");
+#else
+    programID = ShaderHelper::buildProgramFromFile(
+                    "BlueTriangleVertex.glsl",
+                    "BlueTriangleFragment.glsl");
+#endif
     if (!programID) { LOGE("Triangle: could not create program"); return; }
 
     uRadianAngle = glGetUniformLocation(programID, "RadianAngle");

@@ -16,6 +16,8 @@ set(SCENE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../Scene)
 add_library(glpiframeworkintro SHARED
     NativeTemplate.cpp
     ${SCENE_DIR}/Triangle.cpp
+    ${SCENE_DIR}/Renderer.cpp
+    ${SCENE_DIR}/Square.cpp
 )
 
 target_include_directories(glpiframeworkintro PRIVATE

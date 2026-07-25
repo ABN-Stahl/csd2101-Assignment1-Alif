@@ -4,6 +4,7 @@ Coursework repo for module csd2101.
 
 - [`Assignment1-Android/`](Assignment1-Android/) - Assignment 1
 - [`Assignment2-3DFan/`](Assignment2-3DFan/) - Assignment 2, "3D Fan" (Desktop / Android / WebGL)
+- [`Assignment3-FanDashboardHUD/`](Assignment3-FanDashboardHUD/) - Assignment 3, "Fan Dashboard HUD" (Desktop / Android / WebGL)
 - [`Chapter2/`](Chapter2/) - tutorial code kept for CI reference
 
 See each subfolder's own README for build instructions. `.github/workflows/`
